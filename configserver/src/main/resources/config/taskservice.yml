@@ -1,0 +1,11 @@
+server:
+  port: 7203
+
+spring:
+  application:
+    name: taskservice
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7201/eureka/
