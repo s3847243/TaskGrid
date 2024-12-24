@@ -15,10 +15,12 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name  = "tasks")
 @EqualsAndHashCode(of = {"id"})
+@ToString
 public class Task extends CoreEntity{
 
     @Id

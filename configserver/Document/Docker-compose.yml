@@ -20,8 +20,10 @@ services:
     image: elasticsearch:8.16.2
     container_name: elasticsearch
     restart: always
+    expose:
+      - 9200
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
     ports:
       - 9200:9200
-      - 9300:9300
-    environment:
-      discovery.type: single-node
