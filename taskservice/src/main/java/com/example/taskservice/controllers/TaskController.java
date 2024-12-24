@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.taskservice.dto.TaskDTO;
 import com.example.taskservice.services.TaskService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +35,7 @@ public class TaskController {
         return new ResponseEntity<List<TaskDTO>>(taskService.getAllTasks(), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO){
+    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) throws JsonProcessingException{
         System.out.println("Received TaskDTO: " + taskDTO);
 
         return new ResponseEntity<TaskDTO>(taskService.saveTask(taskDTO),HttpStatus.CREATED);

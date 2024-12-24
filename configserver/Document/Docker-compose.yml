@@ -27,3 +27,29 @@ services:
       - "discovery.type=single-node"
     ports:
       - 9200:9200
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=hibbaan
+      - RABBITMQ_DEFAULT_PASS=hibbaan
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    restart: always
+    ports:
+      - 9411:9411

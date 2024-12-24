@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.taskservice.dto.TaskDetailDTO;
 import com.example.taskservice.entities.TaskDetail;
+import com.example.taskservice.producer.TaskNotificationProducer;
 import com.example.taskservice.repositories.TaskDetailRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class TaskDetailServiceImpl implements TaskDetailService{
     private final TaskDetailRepository taskDetailRepository;
     private final ModelMapper modelMapper;
-
+    private final TaskNotificationProducer taskNotificationProducer;
 
     @Override
     public TaskDetailDTO save(TaskDetailDTO taskDetailDTO) {

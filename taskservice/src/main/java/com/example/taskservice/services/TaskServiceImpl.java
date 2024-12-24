@@ -14,8 +14,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.example.taskservice.dto.EmployeeDTO;
 import com.example.taskservice.dto.TaskDTO;
 import com.example.taskservice.dto.TaskDetailDTO;
+import com.example.taskservice.dto.TaskNotificationDTO;
 import com.example.taskservice.entities.Task;
+import com.example.taskservice.producer.TaskNotificationProducer;
 import com.example.taskservice.repositories.TaskRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,8 +32,9 @@ public class TaskServiceImpl implements TaskService {
     private final TaskDetailService taskDetailService;
     //private final WebClient webClient;
     private final APIClient apiClient;
+    private final TaskNotificationProducer taskNotificationProducer;
     @Override
-    public TaskDTO saveTask(TaskDTO taskDTO) {
+    public TaskDTO saveTask(TaskDTO taskDTO) throws JsonProcessingException {
 
         // Rest Template
 //          ResponseEntity<EmployeeDTO> employeeDTOResponseEntity=
@@ -100,12 +104,13 @@ public class TaskServiceImpl implements TaskService {
         taskDetailDTO.setTaskTitle(taskDTO.getTaskTitle());
         taskDetailDTO = taskDetailService.save(taskDetailDTO);
 
-        // TaskNotificationDTO taskNotificationDTO=new TaskNotificationDTO();
-        // taskNotificationDTO.setTaskId(task.getId());
-        // taskNotificationDTO.setTaskTitle(task.getTaskTitle());
-        // taskNotificationDTO.setEmployeeId(employeeDTO.getId());
-        // taskNotificationDTO.setTaskDescription(task.getTaskDescription());
-        // taskNotificationProducer.sendToQueue(taskNotificationDTO);
+
+        TaskNotificationDTO taskNotificationDTO=new TaskNotificationDTO();
+        taskNotificationDTO.setTaskId(task.getId());
+        taskNotificationDTO.setTaskTitle(task.getTaskTitle());
+        taskNotificationDTO.setEmployeeId(employeeDTO.getId());
+        taskNotificationDTO.setTaskDescription(task.getTaskDescription());
+        taskNotificationProducer.sendToQueue(taskNotificationDTO);
 
 
         return taskDTO;
