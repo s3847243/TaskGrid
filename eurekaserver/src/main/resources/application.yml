@@ -15,8 +15,6 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 management:
-  endpoints.web.exposure.include:
-    - '*'
   tracing:
     sampling:
       probability: 1.0  

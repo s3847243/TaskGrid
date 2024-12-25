@@ -1,7 +1,5 @@
 server:
   port: 7206
-
-
 eureka:
   client:
     serviceUrl:

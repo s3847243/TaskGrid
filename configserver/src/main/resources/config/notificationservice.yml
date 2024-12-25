@@ -5,6 +5,10 @@ server:
 spring:
   application:
     name: notificationservice
+  boot:
+    admin:
+      client:
+        url: http://localhost:7207
 
   datasource:
     username: postgres

@@ -17,6 +17,7 @@ import com.example.taskservice.dto.TaskDTO;
 import com.example.taskservice.services.TaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,6 +25,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    public ResponseEntity<TaskDTO> TaskServicefallbackMethodForDTO(Throwable throwable)
+    {
+        TaskDTO taskDTO=new TaskDTO();
+        taskDTO.setTaskDescription("This Error Comes from TAsk Service for dto");
+        System.out.println("This Error Comes from TAsk Service for dto");
+        return ResponseEntity.ok(taskDTO);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskDTO> getTaskById(@PathVariable("id") String id) {
@@ -35,6 +43,7 @@ public class TaskController {
         return new ResponseEntity<List<TaskDTO>>(taskService.getAllTasks(), HttpStatus.OK);
     }
     @PostMapping
+    @CircuitBreaker(name = "TASK_SERVICE",fallbackMethod = "TaskServicefallbackMethodForDTO")
     public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) throws JsonProcessingException{
         System.out.println("Received TaskDTO: " + taskDTO);
 

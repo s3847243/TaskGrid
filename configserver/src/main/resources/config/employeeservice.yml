@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: employeeservice
+  boot:
+    admin:
+      client:
+        url: http://localhost:7207
  
 eureka:
   client:
