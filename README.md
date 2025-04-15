@@ -1,4 +1,4 @@
-# 🛠️ MicroManage – Scalable Task & Notification Management Platform
+# 🛠️ TaskGrid – Scalable Task & Notification Management Platform
 
 **MicroManage** is a full-stack microservices-based system designed to manage employees, tasks, and notifications in a scalable and decoupled architecture. Built using Spring Boot microservices, RabbitMQ for async messaging, ElasticSearch for search, and resilient patterns like circuit breakers and service discovery, the platform offers a real-world view into distributed system design.
 
